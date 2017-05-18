@@ -1,0 +1,41 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+
+namespace Mini_RPG
+{
+    class Menu : GameObject
+    {
+        public static Menu Instance = null;
+        SpriteFont MenuFont;
+        public Vector2 StartButtonPos, QuitButtonPos;
+        public string ButtonText;
+        
+
+        public Menu(string buttonText, Vector2 buttonPos)
+        {
+            Instance = this;
+            ButtonText = buttonText;
+            Texture = Game1.instance.Content.Load<Texture2D>("MenuButton");
+            MenuFont = Game1.instance.Content.Load<SpriteFont>("MenuFont");
+            Position.Y = buttonPos.Y;
+            Position.X = Game1.screenWidth / 2 - Texture.Width / 2;
+            
+            StartButtonPos.Y = Game1.screenHeight / 2 - Texture.Height * 2;
+            QuitButtonPos.Y = Game1.screenHeight / 2 - Texture.Height;
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(Texture, Position, Color.LawnGreen);
+            spriteBatch.DrawString(MenuFont, "" + ButtonText, new Vector2(Position.X + 60, Position.Y + Texture.Height / 4), Color.Black);
+        }
+    }
+}
