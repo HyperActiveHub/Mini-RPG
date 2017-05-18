@@ -1,0 +1,68 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+
+namespace Mini_RPG
+{
+    class Player : GameObject
+    {
+
+        public Player()
+        {
+            Texture = Game1.instance.Content.Load<Texture2D>("Player");
+            Position.X = Game1.screenWidth / 2 - Texture.Width / 2;
+            Position.Y = Game1.screenHeight / 2 - Texture.Height / 2;
+            Speed = 1000;
+
+        }
+
+        public override void Update(GameTime gameTime)
+        {       
+            KeyboardState keyState = Keyboard.GetState();
+
+            Movement(keyState);
+
+
+            base.Update(gameTime);
+        }
+
+        public Vector2 Movement(KeyboardState keyState)
+        {
+            
+            Direction = Vector2.Zero;
+
+            if(keyState.IsKeyDown(Keys.A))
+            {
+                
+                Direction.X = -1;
+            }
+            else if(keyState.IsKeyDown(Keys.D))
+            {
+                Direction.X = 1;
+            }
+            if(keyState.IsKeyDown(Keys.W))
+            {
+                Direction.Y = -1;
+            }
+            else if(keyState.IsKeyDown(Keys.S))
+            {
+                Direction.Y = 1;
+            }
+
+            return Direction;
+        }
+
+        public Rectangle mouseClick()
+        {
+            return new Rectangle(Mouse.GetState().X, Mouse.GetState().Y, 10, 10);
+            
+        }
+    }
+}
